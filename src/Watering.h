@@ -1,5 +1,5 @@
-#include "Pump.h"
-#include "Sensor.h"
+#include "AbstractPump.h"
+#include "AbstractSensor.h"
 #include "SensorData.h"
 #include "WateringData.h"
 #include "WateringSet.h"

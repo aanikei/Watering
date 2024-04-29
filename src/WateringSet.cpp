@@ -1,14 +1,13 @@
 #include "Watering.h"
-#include <esp32-hal-log.h>
 
 using namespace std;
 
 int32_t WateringSet::objectCount = 0;
 
-WateringSet::WateringSet(WateringData& wateringData, Pump* pump) : 
+WateringSet::WateringSet(WateringData& wateringData, AbstractPump* pump) : 
 														WateringSet(wateringData, pump, nullptr) { }
 
-WateringSet::WateringSet(WateringData& wateringData, Pump* pump, Sensor* soilSensor) : 
+WateringSet::WateringSet(WateringData& wateringData, AbstractPump* pump, AbstractSensor* soilSensor) : 
 														data(wateringData), _pump(pump), sensors(soilSensor) {
   objectNumber = ++objectCount;
 }
@@ -119,8 +118,8 @@ bool WateringSet::check(uint32_t currentTime) {
         }
       }
     } else {
-      int32_t elem = res.at(0); // (?) without it UART logging stops working
-      belowThreshold = elem > data.threshold;
+      int32_t single_element = res.at(0); // this way UART logging won't stop working (not sure why it stops)
+      belowThreshold = single_element < data.threshold;
     }
   }
 

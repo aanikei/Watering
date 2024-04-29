@@ -2,13 +2,13 @@
 #include <stdint.h>
 #include <string> 
 #include "WateringData.h"
-#include "Sensor.h"
-#include "Pump.h"
+#include "AbstractSensor.h"
+#include "AbstractPump.h"
 
 class WateringSet {
   public:
-    WateringSet(WateringData& wateringData, Pump* pump); ///< constructor without Sensor argument as watering can be done without moisture sensors, using interval or manually
-    WateringSet(WateringData& wateringData, Pump* pump, Sensor* soilSensor); ///< standard constructor
+    WateringSet(WateringData& wateringData, AbstractPump* pump); ///< constructor without Sensor argument as watering can be done without moisture sensors, using interval or manually
+    WateringSet(WateringData& wateringData, AbstractPump* pump, AbstractSensor* soilSensor); ///< standard constructor
     int32_t getNumber() const; ///< get serial number of the set
           int32_t& threshold(); ///< set threshold in WateringData
     const int32_t& threshold() const; ///< get threshold from WateringData
@@ -40,6 +40,6 @@ class WateringSet {
     int32_t objectNumber;
     WateringData& data;
     void setData(uint32_t time);
-    Sensor* sensors;
-    Pump* _pump;
+    AbstractSensor* sensors;
+    AbstractPump* _pump;
 };

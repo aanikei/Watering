@@ -2,7 +2,7 @@
 #include <vector>
 #include <stdint.h>
 
-class Sensor {
+class AbstractSensor {
   public:
     virtual std::vector<int32_t> getValues();
     virtual void measureValues();

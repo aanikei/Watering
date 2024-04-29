@@ -1,7 +1,7 @@
 #pragma once
 #include <stdint.h>
 
-class Pump {
+class AbstractPump {
   public:
     virtual void runPump(int32_t time);
 };
