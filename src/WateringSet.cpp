@@ -57,6 +57,7 @@ void WateringSet::initWateringData() {
   data.allowWater = true;
   data.reported = false;
   data.pumpReported = true;
+  data.wateringTime = 0;
 }
 
 //BtnWater
@@ -104,7 +105,7 @@ std::vector<int32_t> WateringSet::getSensorValues() const {
 bool WateringSet::check(uint32_t currentTime) {
   bool pumpRun = false;
   data.reported = false;
-  data.pumpReported = true;
+  //data.pumpReported = true;
   bool belowThreshold = true;
   if (sensors != nullptr) {
     sensors->measureValues();
@@ -112,7 +113,7 @@ bool WateringSet::check(uint32_t currentTime) {
 
     if (res.size() > 1) {
       for (int32_t elem : res) {
-        if (elem > data.threshold) {
+        if (elem >= data.threshold) {
           belowThreshold = false;
           break;
         }
@@ -141,7 +142,7 @@ bool WateringSet::check(uint32_t currentTime) {
 
     if (data.allowWater && data.btnWater) {
       _pump->runPump(data.pumpTime);
-	  pumpRun = true;
+	    pumpRun = true;
       setData(currentTime);
       data.btnWater = false;
     }
